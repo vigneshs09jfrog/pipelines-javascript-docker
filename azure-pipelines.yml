@@ -10,6 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  repo: 
 
 stages:
 - stage: Build
@@ -27,3 +28,20 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
         tags: |
           $(tag)
+
+- task: ArtifactoryDocker@1
+  inputs:
+    command: 'push'
+    artifactoryService: 'artifactory-saas'
+    targetRepo: 'docker'
+    imageName: 'jfrog-image'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    includeEnvVars: true
+
+- task: ArtifactoryPublishBuildInfo@1
+  inputs:
+    artifactoryService: 'artifactory-saas'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
