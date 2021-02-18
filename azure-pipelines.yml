@@ -21,6 +21,20 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     includeEnvVars: true
+- task: ArtifactoryProperties@1
+  inputs:
+    command: 'set'
+    artifactoryService: 'artifactory-saas'
+    setProps: 'test=qa'
+    specSource: 'taskConfiguration'
+    fileSpec: >
+      {
+        "files": [
+         {
+           "pattern": "vigneshs-docker.jfrog.io/$(imageName):$(Build.BuildId)"
+         }
+        ]
+       }
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
     artifactoryService: 'artifactory-saas'
