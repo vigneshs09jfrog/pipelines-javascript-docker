@@ -24,6 +24,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
+        repository: vigneshs-docker.jfrog.io
         command: build
         dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
         tags: testvignesh
