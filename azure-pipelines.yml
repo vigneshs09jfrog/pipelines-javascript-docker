@@ -1,39 +1,40 @@
-# Docker
-# Build a Docker image 
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- main
-
-resources:
-- repo: self
-
+- master
+pool:
+  vmImage: 'Ubuntu-18.04'
 variables:
-  tag: '$(Build.BuildId)'
-  repo: docker
-
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        repository: vigneshs-docker.jfrog.io/$(imageName)
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
-    - task: ArtifactoryDocker@1
-      inputs:
-        command: 'push'
-        artifactoryService: 'artifactory-saas'
-        targetRepo: 'docker-local'
-        imageName: 'vigneshs-docker.jfrog.io/$(imageName):$(Build.BuildId)'
-        collectBuildInfo: true
-        buildName: '$(Build.DefinitionName)'
-        buildNumber: '$(Build.BuildNumber)'
-        includeEnvVars: true
+  imageName: 'pipelines-javascript-docker'
+steps:
+- task: ArtifactoryToolsInstaller@1
+  inputs:
+    artifactoryService: 'artifactory-saas'
+    cliInstallationRepo: 'jfrog-cli'
+    installExtractors: true
+    extractorsInstallationRepo: 'jcenter'
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: vigneshs-docker.jfrog.io/$(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
+- task: ArtifactoryDocker@1
+  inputs:
+    command: 'push'
+    artifactoryService: 'artifactory-saas'
+    targetRepo: 'docker-local'
+    imageName: 'vigneshs-docker.jfrog.io/$(imageName):$(Build.BuildId)'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    includeEnvVars: true
+- task: ArtifactoryPublishBuildInfo@1
+  inputs:
+    artifactoryService: 'artifactory-saas'
+    buildName: $(Build.DefinitionName)
+    buildNumber: $(Build.BuildNumber)
+- task: ArtifactoryXrayScan@1
+  inputs:
+    artifactoryService: 'artifactory-saas'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    allowFailBuild: false
