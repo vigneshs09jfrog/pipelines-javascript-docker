@@ -32,7 +32,7 @@ steps:
       {
         "files": [
          {
-           "pattern": "$(targetRepo)/$(dockerImageName):$(Build.BuildId)"
+           "pattern": "docker-local/pipelines-javascript-docker:$(Build.BuildId)"
          }
         ]
       }
