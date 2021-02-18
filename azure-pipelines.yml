@@ -4,6 +4,7 @@ pool:
   vmImage: 'Ubuntu-18.04'
 variables:
   imageName: 'pipelines-javascript-docker'
+  targetRepo: 'docker-local'
 steps:
 - task: Docker@2
   displayName: Build an image
@@ -31,7 +32,7 @@ steps:
       {
         "files": [
          {
-           "pattern": "docker-local/pipelines-javascript-docker/*"
+           "pattern": "$(targetRepo)/$(imageName):$(Build.BuildId)"
          }
         ]
       }
