@@ -24,7 +24,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        repository: vignesh-docker.jfrog.io/$(imageName)
+        repository: vigneshs-docker.jfrog.io/$(imageName)
         command: build
         dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
     - task: ArtifactoryDocker@1
@@ -32,7 +32,7 @@ stages:
         command: 'push'
         artifactoryService: 'artifactory-saas'
         targetRepo: 'docker-local'
-        imageName: 'vignesh-docker.jfrog.io/$(imageName):$(Build.BuildId)'
+        imageName: 'vigneshs-docker.jfrog.io/$(imageName):$(Build.BuildId)'
         collectBuildInfo: true
         buildName: '$(Build.DefinitionName)'
         buildNumber: '$(Build.BuildNumber)'
