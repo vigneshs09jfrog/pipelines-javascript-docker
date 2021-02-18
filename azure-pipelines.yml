@@ -5,12 +5,6 @@ pool:
 variables:
   imageName: 'pipelines-javascript-docker'
 steps:
-- task: ArtifactoryToolsInstaller@1
-  inputs:
-    artifactoryService: 'artifactory-saas'
-    cliInstallationRepo: 'jfrog-cli'
-    installExtractors: true
-    extractorsInstallationRepo: 'jcenter'
 - task: Docker@2
   displayName: Build an image
   inputs:
