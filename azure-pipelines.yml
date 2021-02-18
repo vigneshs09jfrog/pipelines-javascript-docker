@@ -25,16 +25,16 @@ steps:
   inputs:
     command: 'set'
     artifactoryService: 'artifactory-saas'
-    setProps: 'test=qa'
+    setProps: 'qa=pending;os=linux;setfromado=true'
     specSource: 'taskConfiguration'
-    fileSpec: >
+    fileSpec: |
       {
         "files": [
          {
            "pattern": "docker-local/$(imageName):$(Build.BuildId)"
          }
         ]
-       }
+      }
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
     artifactoryService: 'artifactory-saas'
