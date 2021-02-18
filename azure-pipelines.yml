@@ -32,7 +32,7 @@ stages:
         command: 'push'
         artifactoryService: 'artifactory-saas'
         targetRepo: 'docker'
-        imageName: 'vigneshs09jfrog.pipelines-javascript-docker:testvignesh/'
+        imageName: 'docker-vigneshs.jfrog.io/docker/vigneshs09jfrog.pipelines-javascript-docker:testvignesh'
         collectBuildInfo: true
         buildName: '$(Build.DefinitionName)'
         buildNumber: '$(Build.BuildNumber)'
