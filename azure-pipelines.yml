@@ -26,14 +26,13 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
-        tags: |
-          $(tag)
+        tags: testvignesh
     - task: ArtifactoryDocker@1
       inputs:
         command: 'push'
         artifactoryService: 'artifactory-saas'
         targetRepo: 'docker'
-        imageName: 'vigneshs09jfrog.pipelines-javascript-docker'
+        imageName: 'vigneshs09jfrog.pipelines-javascript-docker:testvignesh'
         collectBuildInfo: true
         buildName: '$(Build.DefinitionName)'
         buildNumber: '$(Build.BuildNumber)'
