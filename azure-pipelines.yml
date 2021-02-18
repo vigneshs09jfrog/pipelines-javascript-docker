@@ -31,7 +31,7 @@ steps:
       {
         "files": [
          {
-           "pattern": "vigneshs-docker.jfrog.io/$(imageName):$(Build.BuildId)"
+           "pattern": "docker-local/$(imageName):$(Build.BuildId)"
          }
         ]
        }
