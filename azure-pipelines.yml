@@ -33,7 +33,7 @@ stages:
         command: 'push'
         artifactoryService: 'artifactory-saas'
         targetRepo: 'docker'
-        imageName: 'vigneshs-docker.jfrog.io/vigneshs09jfrog.pipelines-javascript-docker:$(tag)'
+        imageName: 'vigneshs09jfrog.pipelines-javascript-docker:$(tag)'
         collectBuildInfo: true
         buildName: '$(Build.DefinitionName)'
         buildNumber: '$(Build.BuildNumber)'
