@@ -3,13 +3,13 @@ trigger:
 pool:
   vmImage: 'Ubuntu-18.04'
 variables:
-  image: 'pipelines-javascript-docker'
+  dockerImageName: 'pipelines-javascript-docker'
   targetRepo: 'docker-local'
 steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
-    repository: vigneshs-docker.jfrog.io/$(imageName)
+    repository: vigneshs-docker.jfrog.io/$(dockerImageName)
     command: build
     Dockerfile: app/Dockerfile
 - task: ArtifactoryDocker@1
@@ -17,7 +17,7 @@ steps:
     command: 'push'
     artifactoryService: 'artifactory-saas'
     targetRepo: 'docker-local'
-    imageName: 'vigneshs-docker.jfrog.io/$(image):$(Build.BuildId)'
+    imageName: 'vigneshs-docker.jfrog.io/$(dockerImageName):$(Build.BuildId)'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
@@ -32,7 +32,7 @@ steps:
       {
         "files": [
          {
-           "pattern": "$(targetRepo)/$(image):$(Build.BuildId)"
+           "pattern": "$(targetRepo)/$(dockerImageName):$(Build.BuildId)"
          }
         ]
       }
