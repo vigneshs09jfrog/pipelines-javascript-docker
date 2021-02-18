@@ -31,7 +31,7 @@ steps:
       {
         "files": [
          {
-           "pattern": "docker-local/$(imageName):$(Build.BuildId)"
+           "pattern": "docker-local/pipelines-javascript-docker/*"
          }
         ]
       }
@@ -40,9 +40,3 @@ steps:
     artifactoryService: 'artifactory-saas'
     buildName: $(Build.DefinitionName)
     buildNumber: $(Build.BuildNumber)
-- task: ArtifactoryXrayScan@1
-  inputs:
-    artifactoryService: 'artifactory-saas'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-    allowFailBuild: false
