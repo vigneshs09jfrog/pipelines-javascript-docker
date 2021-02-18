@@ -27,7 +27,7 @@ stages:
         repository: vigneshs-docker.jfrog.io
         command: build
         dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
-        tags: testvignesh
+        tags: vigneshs-docker.jfrog.io/vigneshs09jfrog.pipelines-javascript-docker:testvignesh
     - task: ArtifactoryDocker@1
       inputs:
         command: 'push'
