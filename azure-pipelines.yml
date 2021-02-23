@@ -22,6 +22,10 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     includeEnvVars: true
+- task: JfrogCli@1
+  inputs:
+    artifactoryService: 'artifactory-saas'
+    command: 'jfrog rt u --spec-vars=qa=pending;os=linux;setfromado=true'
 - task: ArtifactoryProperties@1
   inputs:
     command: 'set'
@@ -32,7 +36,7 @@ steps:
       {
         "files": [
          {
-           "pattern": "docker-local/pipelines-javascript-docker/$(Build.BuildId)"
+           "pattern": "$(targetRepo)/$(dockerImageName)/$(Build.BuildId)"
          }
         ]
       }
