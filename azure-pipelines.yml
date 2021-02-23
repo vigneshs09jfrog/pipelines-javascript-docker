@@ -25,7 +25,7 @@ steps:
 - task: JfrogCli@1
   inputs:
     artifactoryService: 'artifactory-saas'
-    command: 'jfrog rt u --spec-vars=qa=pending;os=linux;setfromado=true'
+    command: 'jfrog rt u "*/pipelines-javascript-docker/*" $(targetRepo)/$(dockerImageName)/ --spec-vars=qa=pending;os=linux;setfromado=true'
 - task: ArtifactoryProperties@1
   inputs:
     command: 'set'
