@@ -22,10 +22,6 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     includeEnvVars: true
-- task: JfrogCli@1
-  inputs:
-    artifactoryService: 'artifactory-saas'
-    command: 'jfrog rt u "*/pipelines-javascript-docker/*" $(targetRepo)/$(dockerImageName)/'
 - task: ArtifactoryProperties@1
   inputs:
     command: 'set'
